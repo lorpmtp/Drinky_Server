@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const config = require('./config');
 
 let sequelize = new Sequelize(config.database, config.login, config.password, {
     host: config.host,
@@ -11,14 +12,6 @@ let sequelize = new Sequelize(config.database, config.login, config.password, {
         idle: 10000
     }
 });
-
-sequelize.authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
 
 /*sequelize.sync({
     force: true

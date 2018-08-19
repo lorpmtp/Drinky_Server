@@ -9,6 +9,7 @@ const app = express();
 const bodyParser = require('body-parser');
 // to support JSON-encoded bodies
 const passport = require('passport');
+const db = require('./database');
 
 const config = require('./config.js');
 const tools = require('./libs/tools.js');
@@ -21,11 +22,17 @@ app.use(function(req, res, next) {
     res.setHeader('Content-Type', 'application/json');
     next();
 });
-
 app.use(bodyParser.json());
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+db.authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+});
 
 app.set('superSecret', config.secret);
 
