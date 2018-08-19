@@ -1,5 +1,3 @@
-
-
 module.exports = {
 
     checkEmail: function(myVar){
